@@ -23,7 +23,7 @@ const DOG_INFO = {
 */
 const CAT_INFO = {
     name: 'Macska',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Cat_hygiene.jpg/640px-Cat_hygiene.jpg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Cat_hygiene.jpg/500px-Cat_hygiene.jpg',
     descriptionHtml: `
         <p>A <strong>macska</strong>, más néven <strong>házi macska</strong> (Felis silvestris catus) kisebb termetű húsevő emlős, ami a ragadozók rendjén belül a macskafélék (Felidae) családjának Felis neméhez és vadmacska (Felis silvestris) fajához tartozik. A vadmacska alfaja. Ügyes ragadozó, több mint 1000 faj tekinthető a zsákmányának. Emellett meglehetősen intelligens, beidomítható egyszerű parancsok végrehajtására vagy szerkezetek működtetésére – illetve képes önállóan is kisebb feladatok betanulására.</p>
         <p>Körülbelül 10 000 évvel ezelőtt kezdett az ember társaságában élni, háziasításának első ábrázolása mintegy 4000 éve Egyiptomban történt.</p>
