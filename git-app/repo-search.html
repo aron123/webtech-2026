@@ -36,7 +36,9 @@
                 for (const repo of data.items) {
                     const repoHtml = `
                         <div class="card">
-                            <p>${repo.full_name}</p>
+                            <a href="repo.html?name=${encodeURIComponent(repo.full_name)}">
+                                ${repo.full_name}
+                            </a>
                             <p>${repo.description}</p>
                             <p>Language: ${repo.language}</p>
                         </div>
