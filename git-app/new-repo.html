@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git App - Repo létrehozása</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <h2>Repository létrehozása</h2>
+
+    <label for="name">Név:</label>
+    <input type="text" id="name">
+
+    <label for="description">Leírás:</label>
+    <input type="text" id="description">
+
+    <div>
+        <p>Láthatóság:</p>
+        <input type="radio" name="visibility" id="private">
+        <label for="private">Privát</label>
+        <input type="radio" name="visibility" id="public">
+        <label for="public">Publikus</label>
+    </div>
+    
+    <div>
+        <input type="checkbox" id="wiki">
+        <label for="wiki">Wiki lap létrehozása</label>
+    </div>
+
+    <div>
+        <label for="license">Licenc:</label>
+        <select id="license">
+            <option value="MIT">MIT</option>
+            <option value="GPL-3.0">GNU General Public License v3.0</option>
+            <option value="Unlicense">The Unlicense</option>
+        </select>
+    </div>
+
+    <button class="btn btn-primary" id="save-btn">Létrehozás</button>
+    
+    <script src="app.js"></script>
+    <script>
+        async function createRepo() {
+            const nameElem = document.querySelector('#name');
+            const name = nameElem.value;
+
+            const descElem = document.querySelector('#description');
+            const description = descElem.value;
+
+            const visibilityElem = document.querySelector('input[name="visibility"]:checked');
+            const isPrivate = visibilityElem && visibilityElem.id == 'private';
+
+            const wikiElem = document.querySelector('#wiki');
+            const hasWiki = wikiElem.checked;
+
+            const licenseElem = document.querySelector('#license');
+            const license = licenseElem.value;
+
+            const repoData = {
+                name: name,
+                description: description,
+                private: isPrivate,
+                has_wiki: hasWiki,
+                license_template: license
+            };
+
+            try {
+                const res = await fetch('https://api.github.com/user/repos', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + GH_ACCESS_TOKEN
+                    },
+                    body: JSON.stringify(repoData)
+                });
+
+                const data = await res.json();
+
+                if (!res.ok) {
+                    let errorMessage = data.message;
+                    let detailedErrors = data.errors.map(error => error.message);
+                    detailedErrors = detailedErrors.join(", ");
+                    errorMessage += ' ' + detailedErrors;
+                    alert(errorMessage);
+                    return;
+                }
+
+                window.location = 'repo.html?name=' + data.full_name;
+            } catch (err) {
+                alert('Váratlan szerverhiba.');
+                console.error(err);
+            }
+        }
+
+        const saveBtn = document.querySelector('#save-btn');
+        saveBtn.addEventListener('click', () => createRepo());
+    </script>
+</body>
+</html>

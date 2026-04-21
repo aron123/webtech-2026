@@ -85,7 +85,7 @@ a:hover {
 }
 
 /* === Forms === */
-input,
+input:not([type="radio"]):not([type="checkbox"]),
 textarea,
 select {
     width: 100%;
